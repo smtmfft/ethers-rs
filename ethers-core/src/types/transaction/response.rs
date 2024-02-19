@@ -135,6 +135,15 @@ pub struct Transaction {
     #[cfg(not(any(feature = "celo", feature = "optimism")))]
     #[serde(flatten)]
     pub other: crate::types::OtherFields,
+
+    /// It contains a vector of fixed size hash(32 bytes)
+    #[serde(rename = "blobVersionedHashes", default, skip_serializing_if = "Option::is_none")]
+    pub blob_versioned_hashes: Option<Vec<H256>>,
+
+    /// Max fee per data gas
+    /// aka BlobFeeCap or blobGasFeeCap
+    #[serde(rename = "maxFeePerBlobGas", default, skip_serializing_if = "Option::is_none")]
+    pub max_fee_per_blob_gas: Option<U256>,
 }
 
 impl Transaction {
